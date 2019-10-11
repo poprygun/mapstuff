@@ -1,8 +1,11 @@
 package io.microsamples.maps;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Value;
+import org.jeasy.rules.api.Action;
+import org.jeasy.rules.api.Facts;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
@@ -20,6 +23,23 @@ public class App
     }
 }
 
+@Builder
+@Data
+class ValidateEligibilityAction implements Action {
+
+    private MemberStatus memberStatus;
+
+    @Override
+    public void execute(Facts facts) {
+        memberStatus.setEligible(true);
+    }
+}
+
+@Data
+@AllArgsConstructor
+class MemberStatus {
+    private boolean eligible;
+}
 
 
 @Value

@@ -9,35 +9,35 @@ import org.jeasy.rules.core.RuleBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.concurrent.atomic.AtomicBoolean;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 class EasyRulesTest {
-    private RulesEngine rulesEngine = new DefaultRulesEngine();
+    private RulesEngine rulesEngine;
 
 
     @BeforeEach
     void setUp(){
-
+        rulesEngine = new DefaultRulesEngine();
     }
 
     @Test
     void shouldRunRules(){
-        AtomicBoolean eligible = new AtomicBoolean(false);
+
+        final ValidateEligibilityAction eligibilityAction
+                = ValidateEligibilityAction.builder().memberStatus(new MemberStatus(false)).build();
 
         Rule memberRule = new RuleBuilder()
                 .name("some member rule")
                 .description("Validate member.")
                 .when(facts -> ((Member)facts.get("member")).isValid())
-                .then(facts -> eligible.set(true))
+                .then(eligibilityAction)
                 .build();
 
         Rule planRule = new RuleBuilder()
                 .name("some plan rule")
                 .description("Validate plan.")
                 .when(facts -> ((Plan)facts.get("plan")).isGood())
-                .then(facts -> eligible.set(true))
+                .then(eligibilityAction)
                 .build();
 
         Rules rules = new Rules();
@@ -50,7 +50,8 @@ class EasyRulesTest {
 
         rulesEngine.fire(rules, facts);
 
-        assertThat(eligible).isTrue();
-
+        assertThat(eligibilityAction.getMemberStatus().isEligible()).isTrue();
     }
 }
+
+
