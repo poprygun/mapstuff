@@ -2,7 +2,7 @@
 
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-    <modelVersion>${easy-random.version}</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
 
     <groupId>io.microsamples.maps</groupId>
     <artifactId>mapstuff</artifactId>
@@ -20,9 +20,15 @@
       <mapstruct.version>1.3.1.Final</mapstruct.version>
         <easy-random.version>4.0.0</easy-random.version>
         <assertj.version>3.13.2</assertj.version>
+        <easy-rules.version>3.3.0</easy-rules.version>
     </properties>
 
     <dependencies>
+        <dependency>
+            <groupId>org.jeasy</groupId>
+            <artifactId>easy-rules-core</artifactId>
+            <version>${easy-rules.version}</version>
+        </dependency>
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>
