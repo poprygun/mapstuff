@@ -1,8 +1,9 @@
 package io.microsamples.maps;
 
+import lombok.Builder;
 import lombok.Data;
+import lombok.Value;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import java.util.List;
@@ -19,6 +20,22 @@ public class App
     }
 }
 
+
+
+@Value
+@Builder
+class Plan {
+    private String name;
+    private boolean good;
+}
+
+@Value
+@Builder
+class Member {
+    private String name;
+    private boolean valid;
+    private boolean eligible;
+}
 @Mapper
 interface FromToMapper {
     FromToMapper INSTANCE = Mappers.getMapper( FromToMapper.class );
